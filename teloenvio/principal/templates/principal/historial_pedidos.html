@@ -1,0 +1,35 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Historial de Pedidos</h2>
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Número de Pedido</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.numero_pedido }}</td>
+                <td>{{ pedido.fecha }}</td>
+                <td>{{ pedido.estado }}</td>
+                <td>
+                {% if pedido.estado in ['pendiente', 'preparacion'] %}
+                    <form method="post" action="{% url 'cancelar_pedido' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                    </form>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

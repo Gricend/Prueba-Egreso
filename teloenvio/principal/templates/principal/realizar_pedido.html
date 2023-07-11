@@ -1,0 +1,30 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Realizar Pedido</h2>
+        <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="direccion_entrega">Dirección de Entrega:</label>
+            <input type="text" class="form-control" name="direccion_entrega" id="direccion_entrega">
+        </div>
+
+        <div class="form-group">
+            <label for="forma_pago">Forma de Pago:</label>
+            <input type="text" class="form-control" name="forma_pago" id="forma_pago">
+        </div>
+
+        {% for producto in productos %}
+            <div class="form-group">
+            <label for="producto_{{ producto.id }}">{{ producto.nombre }} (Precio: {{ producto.precio }})</label>
+            <input type="number" class="form-control" name="cantidades" id="producto_{{ producto.id }}" min="1">
+            <input type="hidden" name="productos" value="{{ producto.id }}">
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Realizar Pedido</button>
+        </form>
+    </div>
+{% endblock %}

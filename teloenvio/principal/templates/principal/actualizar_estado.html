@@ -1,0 +1,21 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Actualizar Estado del Pedido</h2>
+        <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="estado">Estado:</label>
+            <select class="form-control" name="estado" id="estado">
+            <option value="pendiente">Pendiente</option>
+            <option value="en_revision">En Revisión</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
+    </div>
+{% endblock %}
